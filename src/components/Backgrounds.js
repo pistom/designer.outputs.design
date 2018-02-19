@@ -22,16 +22,35 @@ class Backgrounds extends React.Component {
     })
   }
 
-  handleSaveData(e) {
-    e.preventDefault();
-    this.props.actions.saveProjectData(
-        ['backgrounds'],
-        this.props.projectData,
-        this.props.appState.apiURL
-    );
+  storeBackgroundsInfo() {
+    const backgrounds = {};
+    this.state.backgrounds.forEach(item => {
+      backgrounds[item.bgName] = {
+        fileName: item.fileName,
+        bgSize: "cover",
+        bgPosition: "center center"
+      };
+    });
+    this.props.actions.storeBackgrounds(backgrounds)
   }
 
-  handleChangeBackgroundData(data, index){
+  handleSaveData(e) {
+    e.preventDefault();
+    this.storeBackgroundsInfo();
+  }
+
+  componentWillReceiveProps(nextProps) {
+
+    if (this.props.projectData.backgrounds !== nextProps.projectData.backgrounds) {
+      this.props.actions.saveProjectData(
+          ['backgrounds'],
+          Object.assign(this.props.projectData, {backgrounds: nextProps.projectData.backgrounds}),
+          this.props.appState.apiURL
+      );
+    }
+  }
+
+  handleChangeBackgroundData(data, index) {
     let backgrounds = this.state.backgrounds;
     backgrounds[index] = data;
     this.setState({
@@ -55,22 +74,29 @@ class Backgrounds extends React.Component {
       <h1 key="title">Backgrounds</h1>,
       <div key="content">
         <form onSubmit={this.handleSaveData}>
-          {(this.state.backgrounds).map((bg, index) => {
-            return (
-                <Background key={index}
-                            arrayItem={index}
-                            bgName={bg.bgName}
-                            fileName={bg.fileName}
-                            onChange={this.handleChangeBackgroundData}
-                />
-            )
-          })}
-          <div className="row text-right">
+          <div className="row text-right mt-2">
             <div className="col-sm-12">
               <button type="button" className="btn btn-primary" onClick={this.handleAddBackground}>Add background
               </button>
             </div>
           </div>
+          {(this.state.backgrounds).map((bg, index) => {
+            return (
+                <Background
+                    key={index}
+                    arrayItem={index}
+                    bgName={bg.bgName}
+                    fileName={bg.fileName}
+                    onChange={this.handleChangeBackgroundData}
+                />
+            )
+          })}
+          <div className="row mt-3">
+            <div className="col-sm-12">
+              <button type="submit" className="btn btn-primary">Save</button>
+            </div>
+          </div>
+
         </form>
       </div>
     ];

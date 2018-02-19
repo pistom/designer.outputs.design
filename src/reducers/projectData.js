@@ -6,6 +6,7 @@ import {
   SET_PROJECT_PASSWORD,
   SET_NUMBER_OF_VERSIONS,
   SAVE_PROJECT_DATA,
+  STORE_BACKGROUNDS,
 } from '../actions/const';
 
 const initialState = {
@@ -68,6 +69,14 @@ export default function reducer(state = initialState, action) {
       const nextState = Object.assign({}, state, {
         numberOfVersions: action.number,
         dataSaved: false
+      });
+      return nextState;
+    }
+
+    case STORE_BACKGROUNDS: {
+      const nextState = Object.assign({}, state, {
+        backgrounds: action.backgrounds,
+        dataSaved: true
       });
       return nextState;
     }

@@ -27,7 +27,7 @@ class Background extends React.Component {
 
   render() {
     return (
-        <div className="row">
+        <div className="row mt-2">
           <div className="col">
             <input type="text" name="bgName" className="form-control" placeholder="Background name"
                    value={this.state.bgName}
