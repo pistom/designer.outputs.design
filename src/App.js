@@ -33,6 +33,7 @@ class App extends Component {
               />
             ) : (
               <Login
+                apiURL={this.props.appState.apiURL}
                 error={this.props.projectData.error}
                 getProjectData={this.props.actions.getProjectData}
                 getProjectMessages={this.props.actions.getProjectMessages}

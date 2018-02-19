@@ -3,6 +3,7 @@ import {
 } from '../actions/const';
 
 const initialState = {
+  apiURL: "http://api.outputs.local",
   selectedStep: undefined
 };
 

@@ -45,8 +45,8 @@ class Login extends React.Component {
     this.setState({
       error: ''
     });
-    this.props.getProjectData(this.state.projectId, this.state.password);
-    this.props.getProjectMessages(this.state.projectId, this.state.password);
+    this.props.getProjectData(this.state.projectId, this.state.password, this.props.apiURL);
+    this.props.getProjectMessages(this.state.projectId, this.state.password, this.props.apiURL);
   }
 
   render() {

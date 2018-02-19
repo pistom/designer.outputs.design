@@ -1,13 +1,13 @@
 import fetch from 'isomorphic-fetch';
 
-function saveProjectData(keys, projectData) {
+function saveProjectData(keys, projectData, apiURL) {
 
   const data = {};
   keys.forEach((item) => {
     data[item] = projectData[item];
   });
 
-  const dataDest = `http://api.outputs.local/saveData.php?projectId=${projectData.projectId}`;
+  const dataDest = `${apiURL}/saveData.php?projectId=${projectData.projectId}`;
   const formData = new FormData();
   formData.append('data', JSON.stringify(data));
 

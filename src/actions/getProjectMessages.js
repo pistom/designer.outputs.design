@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
 
-function getProjectMessages(projectId, password) {
-  const dataSource = `http://api.outputs.local/getMessages.php?projectId=${projectId}`;
+function getProjectMessages(projectId, password, apiURL) {
+  const dataSource = `${apiURL}/getMessages.php?projectId=${projectId}`;
   const data = new FormData();
   data.append('password', password);
   return {

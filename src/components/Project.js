@@ -5,7 +5,6 @@ import Content from './Content'
 class Project extends React.Component {
 
   componentDidMount() {
-
   }
 
   render() {

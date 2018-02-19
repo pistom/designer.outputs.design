@@ -17,7 +17,11 @@ class Home extends React.Component {
 
   handleSaveData(e) {
     e.preventDefault();
-    this.props.actions.saveProjectData(['name', 'password', 'numberOfVersions'], this.props.projectData);
+    this.props.actions.saveProjectData(
+        ['name', 'password', 'numberOfVersions'],
+        this.props.projectData,
+        this.props.appState.apiURL
+    );
   }
 
   handleProjectNameChange(e) {

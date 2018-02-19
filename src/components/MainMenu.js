@@ -23,6 +23,13 @@ class MainMenu extends React.Component {
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav">
               <a
+                  href="#home"
+                  onClick={() => this.handleSelectStep("home")}
+                  className="nav-item nav-link"
+              >
+                Project info
+              </a>
+              <a
                   href="#backgrounds"
                   onClick={() => this.handleSelectStep("backgrounds")}
                   className="nav-item nav-link"
