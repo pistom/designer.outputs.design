@@ -51,17 +51,25 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>designOutputs</h1>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="projectId">Project ID</label>
-          <input type="text" id="projectId" value={this.state.projectId} onChange={this.handleChangeProjectId} />
-          <label htmlFor="password">Password</label>
-          <input type="password" id="password" value={this.state.password} onChange={this.handleChangePassword} />
-          <p><input type="submit" value="Login" /></p>
-        </form>
-        <p>{this.state.error}</p>
-      </div>
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-sm-6 text-center">
+              <h1>designOutputs</h1>
+              <form onSubmit={this.handleSubmit}>
+                <div className="form-group">
+                  <label htmlFor="projectId">Project ID</label>
+                  <input className="form-control" type="text" id="projectId" value={this.state.projectId} onChange={this.handleChangeProjectId}/>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="password">Password</label>
+                  <input className="form-control" type="password" id="password" value={this.state.password} onChange={this.handleChangePassword}/>
+                </div>
+                <button type="submit" className="btn btn-primary">Login</button>
+              </form>
+              <p>{this.state.error}</p>
+            </div>
+          </div>
+        </div>
     );
   }
 }
