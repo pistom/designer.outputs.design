@@ -9,6 +9,7 @@ import setProjectPassword from './actions/setProjectPassword';
 import saveProjectData from './actions/saveProjectData';
 import setNumberOfVersions from './actions/setNumberOfVersions';
 import storeBackgrounds from './actions/storeBackgrounds';
+import storeDevices from './actions/storeDevices';
 import Login from './components/Login'
 import Project from './components/Project'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -64,7 +65,8 @@ function mapDispatchToProps(dispatch) {
     setProjectPassword,
     saveProjectData,
     setNumberOfVersions,
-    storeBackgrounds
+    storeBackgrounds,
+    storeDevices
   };
   return {actions: bindActionCreators(actions, dispatch)};
 }

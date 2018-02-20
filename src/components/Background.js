@@ -27,14 +27,14 @@ class Background extends React.Component {
 
   render() {
     return (
-        <div className="row mt-2">
-          <div className="col">
+        <div className="row mt-2 border-top">
+          <div className="col-sm-6 mt-2">
             <input type="text" name="bgName" className="form-control" placeholder="Background name"
                    value={this.state.bgName}
                    onChange={this.handleBgNameChange}
             />
           </div>
-          <div className="col">
+          <div className="col-sm-6 mt-2">
             <input type="text" name="fileName" className="form-control" placeholder="File"
                    value={this.state.fileName}
                    onChange={this.handleFileNameChange}

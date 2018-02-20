@@ -3,6 +3,7 @@ import Home from './Home'
 import Devices from './Devices'
 import Backgrounds from './Backgrounds'
 import Pages from './Pages'
+import Page from './Page'
 import Messages from './Messages'
 
 class Content extends React.Component {
@@ -27,13 +28,16 @@ class Content extends React.Component {
         Content = Messages;
         contentKey = "Messages";
         break;
+      case 'page':
+        Content = Page;
+        contentKey = "Page";
+        break;
       default:
         Content = Home;
         contentKey = "Home";
     }
     return (
-
-        <div className="container">
+        <div className="container mt-3">
           {React.createElement(Content, {
             key: contentKey,
             appState: this.props.appState,

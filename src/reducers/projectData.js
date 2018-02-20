@@ -7,6 +7,7 @@ import {
   SET_NUMBER_OF_VERSIONS,
   SAVE_PROJECT_DATA,
   STORE_BACKGROUNDS,
+  STORE_DEVICES,
 } from '../actions/const';
 
 const initialState = {
@@ -76,6 +77,14 @@ export default function reducer(state = initialState, action) {
     case STORE_BACKGROUNDS: {
       const nextState = Object.assign({}, state, {
         backgrounds: action.backgrounds,
+        dataSaved: true
+      });
+      return nextState;
+    }
+
+    case STORE_DEVICES: {
+      const nextState = Object.assign({}, state, {
+        devices: action.devices,
         dataSaved: true
       });
       return nextState;

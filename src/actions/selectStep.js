@@ -1,7 +1,8 @@
-function selectStep(step) {
+function selectStep(step, page=false) {
   return {
     type: 'SELECT_STEP',
-    step: step
+    step,
+    page
   }
 }
 

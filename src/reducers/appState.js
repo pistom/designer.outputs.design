@@ -12,7 +12,8 @@ export default function reducer(state = initialState, action) {
 
     case SELECT_STEP: {
       return Object.assign({}, state, {
-        selectedStep: action.step
+        selectedStep: action.step,
+        editedPage: action.page
       });
     }
 
