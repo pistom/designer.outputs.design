@@ -8,6 +8,7 @@ import setProjectName from './actions/setProjectName';
 import setProjectPassword from './actions/setProjectPassword';
 import saveProjectData from './actions/saveProjectData';
 import setNumberOfVersions from './actions/setNumberOfVersions';
+import setBreakpointWidth from './actions/setBreakpointWidth';
 import storeBackgrounds from './actions/storeBackgrounds';
 import storeDevices from './actions/storeDevices';
 import Login from './components/Login'
@@ -66,7 +67,8 @@ function mapDispatchToProps(dispatch) {
     saveProjectData,
     setNumberOfVersions,
     storeBackgrounds,
-    storeDevices
+    storeDevices,
+    setBreakpointWidth
   };
   return {actions: bindActionCreators(actions, dispatch)};
 }

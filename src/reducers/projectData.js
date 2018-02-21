@@ -8,6 +8,7 @@ import {
   SAVE_PROJECT_DATA,
   STORE_BACKGROUNDS,
   STORE_DEVICES,
+  SET_BREAKPOINT_WIDTH,
 } from '../actions/const';
 
 const initialState = {
@@ -88,6 +89,12 @@ export default function reducer(state = initialState, action) {
         dataSaved: true
       });
       return nextState;
+    }
+    case SET_BREAKPOINT_WIDTH: {
+      const stateCopy = Object.assign(state);
+      stateCopy.pages[action.page].devices[action.device].bWidth = action.bWidth;
+      console.log(action.bWidth);
+      return Object.assign({}, stateCopy);
     }
 
     default: {
