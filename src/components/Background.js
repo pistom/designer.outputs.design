@@ -5,7 +5,7 @@ class Background extends React.Component {
   constructor() {
     super();
     this.handleBgNameChange = this.handleBgNameChange.bind(this);
-    this.handleFileNameChange = this.handleFileNameChange.bind(this);
+    this.handleFileNameFocus = this.handleFileNameFocus.bind(this);
   }
 
   componentWillMount() {
@@ -20,9 +20,8 @@ class Background extends React.Component {
     this.props.onChange(Object.assign(this.state, {bgName: e.target.value}), this.props.arrayItem);
   }
 
-  handleFileNameChange(e) {
-    this.setState({fileName: e.target.value});
-    this.props.onChange(Object.assign(this.state, {fileName: e.target.value}), this.props.arrayItem);
+  handleFileNameFocus() {
+    this.props.onFocus(this.props.arrayItem)
   }
 
   render() {
@@ -35,9 +34,9 @@ class Background extends React.Component {
             />
           </div>
           <div className="col-sm-6 mt-2">
-            <input type="text" name="fileName" className="form-control" placeholder="File"
-                   value={this.state.fileName}
-                   onChange={this.handleFileNameChange}
+            <input type="text" name="fileName" className="form-control" placeholder="File" readOnly
+                   value={this.props.fileName.replace(/^.*[\\/]/, '')}
+                   onFocus={this.handleFileNameFocus}
             />
           </div>
         </div>

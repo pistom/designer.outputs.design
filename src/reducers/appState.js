@@ -1,5 +1,8 @@
 import LocalHostChecker from '../CheckIfRunOnLocalHost';
-import { SELECT_STEP } from '../actions/const';
+import {
+  GET_FILES_LIST_FULFILLED, GET_FILES_LIST_PENDING, GET_FILES_LIST_REJECTED,
+  SELECT_STEP
+} from '../actions/const';
 
 
 const initialState = {
@@ -14,6 +17,27 @@ export default function reducer(state = initialState, action) {
       return Object.assign({}, state, {
         selectedStep: action.step,
         editedPage: action.page
+      });
+    }
+
+    case GET_FILES_LIST_PENDING: {
+      return Object.assign({}, state, {
+        isLoadingData: true,
+        loadingDataError: false
+      });
+    }
+
+    case GET_FILES_LIST_FULFILLED: {
+
+      return Object.assign({}, state, action.payload, {
+        isLoadingData: false
+      });
+    }
+
+    case GET_FILES_LIST_REJECTED: {
+      return Object.assign({}, state, {
+        isLoadingData: false,
+        loadingDataError: true
       });
     }
 

@@ -52,19 +52,35 @@ class Login extends React.Component {
   render() {
     return (
         <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-sm-6 text-center">
-              <h1>designOutputs</h1>
+          <div className="row justify-content-center m-3 m-lg-5">
+            <div className="col-sm-6 col-md-5 col-lg-4 text-center border">
+              <h3>designOutputs</h3>
               <form onSubmit={this.handleSubmit}>
                 <div className="form-group">
-                  <label htmlFor="projectId">Project ID</label>
-                  <input className="form-control" type="text" id="projectId" value={this.state.projectId} onChange={this.handleChangeProjectId}/>
+                  <div className="input-group mb-3">
+                    <div className="input-group-prepend">
+                      <span className="input-group-text" id="basic-addon1">Project ID</span>
+                    </div>
+                    <input className="form-control" type="text" id="projectId"
+                           value={this.state.projectId}
+                           onChange={this.handleChangeProjectId}
+                    />
+                  </div>
                 </div>
                 <div className="form-group">
-                  <label htmlFor="password">Password</label>
-                  <input className="form-control" type="password" id="password" value={this.state.password} onChange={this.handleChangePassword}/>
+                  <div className="input-group mb-3">
+                    <div className="input-group-prepend">
+                      <span className="input-group-text" id="basic-addon1">Password</span>
+                    </div>
+                    <input className="form-control" type="password" id="password"
+                           value={this.state.password}
+                           onChange={this.handleChangePassword}
+                    />
+                  </div>
                 </div>
-                <button type="submit" className="btn btn-primary">Login</button>
+                <p className="text-right">
+                  <button type="submit" className="btn btn-primary">Login</button>
+                </p>
               </form>
               <p>{this.state.error}</p>
             </div>
