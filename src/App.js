@@ -11,6 +11,10 @@ import setNumberOfVersions from './actions/setNumberOfVersions';
 import setBreakpointWidth from './actions/setBreakpointWidth';
 import storeBackgrounds from './actions/storeBackgrounds';
 import storeDevices from './actions/storeDevices';
+import setVariantFileName from './actions/setVariantFileName';
+import setVariantImageSize from './actions/setVariantImageSize';
+import setVariantDensity from './actions/setVariantDensity';
+import savePageName from './actions/savePageName';
 import Login from './components/Login'
 import Project from './components/Project'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -68,7 +72,11 @@ function mapDispatchToProps(dispatch) {
     setNumberOfVersions,
     storeBackgrounds,
     storeDevices,
-    setBreakpointWidth
+    setBreakpointWidth,
+    setVariantFileName,
+    setVariantImageSize,
+    savePageName,
+    setVariantDensity
   };
   return {actions: bindActionCreators(actions, dispatch)};
 }

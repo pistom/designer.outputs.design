@@ -9,6 +9,11 @@ import {
   STORE_BACKGROUNDS,
   STORE_DEVICES,
   SET_BREAKPOINT_WIDTH,
+  SET_VARIANT_FILENAME,
+  SET_VARIANT_IMAGE_SIZE,
+  SET_VARIANT_DENSITY,
+  EDIT_PAGE_NAME,
+  ADD_NEW_PAGE,
 } from '../actions/const';
 
 const initialState = {
@@ -93,7 +98,37 @@ export default function reducer(state = initialState, action) {
     case SET_BREAKPOINT_WIDTH: {
       const stateCopy = Object.assign(state);
       stateCopy.pages[action.page].devices[action.device].bWidth = action.bWidth;
-      console.log(action.bWidth);
+      return Object.assign({}, stateCopy);
+    }
+
+    case SET_VARIANT_FILENAME: {
+      const stateCopy = Object.assign(state);
+      stateCopy.pages[action.page].devices[action.device].designs[action.variant].fileName = action.fileName;
+      return Object.assign({}, stateCopy);
+    }
+
+    case SET_VARIANT_DENSITY: {
+      const stateCopy = Object.assign(state);
+      stateCopy.pages[action.page].devices[action.device].designs[action.variant].density = action.density;
+      return Object.assign({}, stateCopy);
+    }
+
+    case SET_VARIANT_IMAGE_SIZE: {
+      const stateCopy = Object.assign(state);
+      stateCopy.pages[action.page].devices[action.device].designs[action.variant][action.dimension] = action.value;
+      return Object.assign({}, stateCopy);
+    }
+
+    case EDIT_PAGE_NAME: {
+      const stateCopy = Object.assign(state);
+      stateCopy.pages[action.newName] = Object.assign(stateCopy.pages[action.oldName]);
+      delete stateCopy.pages[action.oldName];
+      return Object.assign({}, stateCopy);
+    }
+
+    case ADD_NEW_PAGE: {
+      const stateCopy = Object.assign(state);
+      stateCopy.pages[action.name] = action.emptyPage;
       return Object.assign({}, stateCopy);
     }
 

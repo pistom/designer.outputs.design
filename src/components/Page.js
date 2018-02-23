@@ -51,8 +51,11 @@ class Page extends React.Component {
                   {this.props.projectData.numberOfVersions > 1 ? <h5>Variant {variant}</h5> : null}
                   <Variant
                     design={this.props.projectData.pages[page].devices[device].designs[variant]}
-                    variantName={variant}
+                    page={page}
+                    device={device}
+                    variant={variant}
                     id={Math.floor(Math.random() * 1000)}
+                    actions={this.props.actions}
                   />
                 </div>
             );
