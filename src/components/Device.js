@@ -8,6 +8,7 @@ class Device extends React.Component {
     this.handleFileNameChange = this.handleFileNameChange.bind(this);
     this.handleDefaultBgImageChange = this.handleDefaultBgImageChange.bind(this);
     this.handleDimensionsChange = this.handleDimensionsChange.bind(this);
+    this.handleFileNameFocus = this.handleFileNameFocus.bind(this);
   }
 
   componentWillMount() {
@@ -42,6 +43,10 @@ class Device extends React.Component {
     this.props.onChange(Object.assign(this.state, {[dim]: Number(val)}), this.props.arrayItem);
   }
 
+  handleFileNameFocus() {
+    this.props.onFocus(this.props.arrayItem)
+  }
+
   render() {
     return (
         <div className="row mt-2 border-top">
@@ -52,9 +57,9 @@ class Device extends React.Component {
             />
           </div>
           <div className="col-sm-12 col-md-2 col-lg-2 mt-2">
-            <input type="text" name="fileName" className="form-control" placeholder="File"
-                   value={this.state.fileName}
-                   onChange={this.handleFileNameChange}
+            <input type="text" name="fileName" className="form-control" placeholder="File" readOnly
+                   value={this.props.fileName.replace(/^.*[\\/]/, '')}
+                   onFocus={this.handleFileNameFocus}
             />
           </div>
           <div className="col-sm-12 col-md-6 col-lg-6 mt-2">

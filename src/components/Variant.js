@@ -4,13 +4,9 @@ class Variant extends React.Component {
 
   constructor() {
     super();
-    this.handleFileNameChange = this.handleFileNameChange.bind(this);
     this.handleVariantImageSizeChange = this.handleVariantImageSizeChange.bind(this);
     this.handleDensityChange = this.handleDensityChange.bind(this);
-  }
-
-  handleFileNameChange(e) {
-    this.props.actions.setVariantFileName(this.props.page, this.props.device, this.props.variant, e.target.value);
+    this.handleFileNameFocus = this.handleFileNameFocus.bind(this);
   }
 
   handleDensityChange(e) {
@@ -21,15 +17,19 @@ class Variant extends React.Component {
     this.props.actions.setVariantImageSize(this.props.page, this.props.device, this.props.variant, dimension, Number(value));
   }
 
+  handleFileNameFocus() {
+    this.props.onFocus(this.props.device, this.props.variant)
+  }
+
   render() {
     return (
         <form>
           <div className="form-row">
             <div className="form-group col-md-6">
               <label htmlFor="fileName">File name</label>
-              <input type="text" className="form-control" id="fileName" placeholder="File name"
-                     defaultValue={this.props.design.fileName}
-                     onChange={this.handleFileNameChange}
+              <input type="text" className="form-control" id="fileName" placeholder="File name" readOnly
+                     value={(this.props.design.fileName) ? this.props.design.fileName.replace(/^.*[\\/]/, '') : ""}
+                     onFocus={this.handleFileNameFocus}
               />
             </div>
             <div className="form-group col-md-3">

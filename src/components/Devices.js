@@ -1,12 +1,21 @@
 import React from 'react';
 import Device from './Device';
+import Uppy from "uppy/lib/core/index";
+import XHRUpload from "uppy/lib/plugins/XHRUpload";
+import Dashboard from "uppy/lib/plugins/Dashboard/index";
+import $ from "jquery";
+import FileBrowser from './FileBrowser'
 
 class Devices extends React.Component {
   constructor(props) {
     super(props);
+    this.props.actions.getFilesList(this.props.projectData.projectId, "device", this.props.appState.apiURL);
     this.handleSaveData = this.handleSaveData.bind(this);
     this.handleAddDevice = this.handleAddDevice.bind(this);
     this.handleChangeDeviceData = this.handleChangeDeviceData.bind(this);
+    this.handleUploadFilesBtn = this.handleUploadFilesBtn.bind(this);
+    this.handleFocusBackgroundInput = this.handleFocusBackgroundInput.bind(this);
+    this.handleSelectImage = this.handleSelectImage.bind(this);
   }
 
   componentWillMount() {
@@ -23,6 +32,20 @@ class Devices extends React.Component {
       })
     });
     this.setState({devices})
+
+    this.uppy = Uppy({autoProceed: false})
+        .use(Dashboard, {
+          target: 'body',
+          closeModalOnClickOutside: true
+        })
+        .use(XHRUpload, {
+          endpoint: `${this.props.appState.apiURL}/uploadFiles.php?projectId=${this.props.projectData.projectId}&imageType=device`,
+          fieldName: 'my_file'
+        })
+        .run();
+    this.uppy.on('complete', () => {
+      this.props.actions.getFilesList(this.props.projectData.projectId, "device", this.props.appState.apiURL);
+    });
   }
 
   storeDevicesInfo() {
@@ -39,7 +62,6 @@ class Devices extends React.Component {
     });
     this.props.actions.storeDevices(devices)
   }
-
 
   handleSaveData(e) {
     e.preventDefault();
@@ -67,7 +89,6 @@ class Devices extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
     if (this.props.projectData.devices !== nextProps.projectData.devices) {
       this.props.actions.saveProjectData(
           ['devices'],
@@ -77,16 +98,39 @@ class Devices extends React.Component {
     }
   }
 
+  handleUploadFilesBtn() {
+    this.uppy.getPlugin('Dashboard').openModal();
+  }
+
+  handleFocusBackgroundInput(index) {
+    $('#selectFileModal').modal('show');
+    this.setState({
+      selectedDevice: index
+    })
+  }
+
+  handleSelectImage(selectedImage) {
+    $('#selectFileModal').modal('hide');
+    let image = `${this.props.projectData.projectId}/devices/${selectedImage}`;
+    let devices = Object.assign(this.state.devices);
+    devices[this.state.selectedDevice].fileName = image;
+    this.setState({
+      devices: devices
+    });
+  }
+
   render() {
     return [
       <h1 key="title">Devices</h1>,
       <div key="content">
         <form onSubmit={this.handleSaveData}>
-          <div className="row text-right mt-2">
-            <div className="col-sm-12">
-              <button type="button" className="btn btn-primary" onClick={this.handleAddDevice}>Add device</button>
+          <div key="buttons" className="float-right mb-3">
+            <div className="btn-group mt-2" role="group">
+              <button type="submit" className="btn btn-secondary" onClick={this.handleUploadFilesBtn}>Upload files</button>
+              <button type="submit" className="btn btn-primary" onClick={this.handleAddDevice}>Add device</button>
             </div>
           </div>
+          <div className="clearfix"/>
           <div className="row small d-none d-md-flex">
             <div className="col-sm-12 col-md-2 col-lg-2 mt-2">Name</div>
             <div className="col-sm-12 col-md-2 col-lg-2 mt-2">Image</div>
@@ -113,6 +157,7 @@ class Devices extends React.Component {
                     dHeight={device.dHeight}
                     defaultBgImage={device.defaultBgImage}
                     onChange={this.handleChangeDeviceData}
+                    onFocus={this.handleFocusBackgroundInput}
                 />
             )
           })}
@@ -123,6 +168,33 @@ class Devices extends React.Component {
           </div>
 
         </form>
+      </div>,
+      <div key="addPage">
+        <div className="modal fade" id="selectFileModal" tabIndex="-1" role="dialog" aria-labelledby="addPageModal"
+             aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">Files</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <FileBrowser
+                    imagesType="device"
+                    actions={this.props.actions}
+                    appState={this.props.appState}
+                    projectData={this.props.projectData}
+                    onSelectImage={this.handleSelectImage}
+                />
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     ];
   }
