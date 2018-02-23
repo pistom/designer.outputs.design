@@ -1,5 +1,9 @@
 import React from 'react';
 import Background from './Background';
+import Uppy from 'uppy/lib/core'
+import XHRUpload from 'uppy/lib/plugins/XHRUpload'
+import Dashboard from 'uppy/lib/plugins/Dashboard'
+import 'uppy/dist/uppy.css'
 
 class Backgrounds extends React.Component {
   constructor(props) {
@@ -7,6 +11,7 @@ class Backgrounds extends React.Component {
     this.handleSaveData = this.handleSaveData.bind(this);
     this.handleAddBackground = this.handleAddBackground.bind(this);
     this.handleChangeBackgroundData = this.handleChangeBackgroundData.bind(this);
+    this.handleUploadFilesBtn = this.handleUploadFilesBtn.bind(this);
   }
 
   componentWillMount() {
@@ -19,7 +24,21 @@ class Backgrounds extends React.Component {
     });
     this.setState({
       backgrounds: backgrounds
-    })
+    });
+
+    this.uppy = Uppy({autoProceed: false})
+        .use(Dashboard, {
+          target: 'body',
+          closeModalOnClickOutside: true
+        })
+        .use(XHRUpload, {
+          endpoint: `${this.props.appState.apiURL}/uploadFiles.php?projectId=${this.props.projectData.projectId}&imageType=background`,
+          fieldName: 'my_file'
+        })
+        .run();
+    this.uppy.on('complete', (result) => {
+      console.log(result)
+    });
   }
 
   storeBackgroundsInfo() {
@@ -40,7 +59,6 @@ class Backgrounds extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
     if (this.props.projectData.backgrounds !== nextProps.projectData.backgrounds) {
       this.props.actions.saveProjectData(
           ['backgrounds'],
@@ -69,17 +87,22 @@ class Backgrounds extends React.Component {
     })
   }
 
+  handleUploadFilesBtn() {
+    this.uppy.getPlugin('Dashboard').openModal();
+  }
+
   render() {
     return [
       <h1 key="title">Backgrounds</h1>,
       <div key="content">
         <form onSubmit={this.handleSaveData}>
-          <div className="row text-right mt-2">
-            <div className="col-sm-12">
-              <button type="button" className="btn btn-primary" onClick={this.handleAddBackground}>Add background
-              </button>
+          <div key="buttons" className="float-right mb-3">
+            <div className="btn-group mt-2" role="group">
+              <button type="submit" className="btn btn-secondary" onClick={this.handleUploadFilesBtn}>Upload files</button>
+              <button type="submit" className="btn btn-primary" onClick={this.handleAddBackground}>Add background</button>
             </div>
           </div>
+          <div className="clearfix"/>
           {(this.state.backgrounds).map((bg, index) => {
             return (
                 <Background

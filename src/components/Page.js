@@ -1,11 +1,33 @@
 import React from 'react';
 import Variant from './Variant';
+import Uppy from 'uppy/lib/core'
+import XHRUpload from 'uppy/lib/plugins/XHRUpload'
+import Dashboard from 'uppy/lib/plugins/Dashboard'
+import 'uppy/dist/uppy.css'
+
 
 class Page extends React.Component {
   constructor() {
     super();
     this.handleBreakpointChange = this.handleBreakpointChange.bind(this);
     this.handleSavePage = this.handleSavePage.bind(this);
+    this.handleUploadFilesBtn = this.handleUploadFilesBtn.bind(this);
+  }
+
+  componentWillMount() {
+    this.uppy = Uppy({autoProceed: false})
+        .use(Dashboard, {
+          target: 'body',
+          closeModalOnClickOutside: true
+        })
+        .use(XHRUpload, {
+          endpoint: `${this.props.appState.apiURL}/uploadFiles.php?projectId=${this.props.projectData.projectId}&imageType=project`,
+          fieldName: 'my_file'
+        })
+        .run();
+    this.uppy.on('complete', (result) => {
+      console.log(result)
+    });
   }
 
   handleBreakpointChange(device, value) {
@@ -24,6 +46,10 @@ class Page extends React.Component {
     );
   }
 
+  handleUploadFilesBtn() {
+    this.uppy.getPlugin('Dashboard').openModal();
+  }
+
   render() {
     const page = this.props.appState.editedPage;
     return [
@@ -31,31 +57,38 @@ class Page extends React.Component {
         {this.props.appState.editedPage ? "Edit" : "Add"} page
         {this.props.appState.editedPage ? <strong> – {this.props.appState.editedPage}</strong> : null}
       </h2>,
-      <div key="save" className="row mt-3">
-        <div className="col-sm-12 text-right">
+      <div key="buttons" className="float-right">
+        <div className="btn-group mt-2" role="group">
+          <button type="submit" className="btn btn-secondary" onClick={this.handleUploadFilesBtn}>Upload files</button>
           <button type="submit" className="btn btn-primary" onClick={this.handleSavePage}>Save</button>
         </div>
       </div>,
+      <div key="clearfix" className="clearfix"/>,
       <div key="content" className="content">
         {Object.keys(this.props.projectData.devices).map(device => {
           const row = [];
           for (let i = 0; i < this.props.projectData.numberOfVersions; i++) {
             let variant;
             switch (i) {
-              case 0: variant = "A"; break;
-              case 1: variant = "B"; break;
-              default: variant = "A";
+              case 0:
+                variant = "A";
+                break;
+              case 1:
+                variant = "B";
+                break;
+              default:
+                variant = "A";
             }
             row.push(
                 <div key={i} className="col">
                   {this.props.projectData.numberOfVersions > 1 ? <h5>Variant {variant}</h5> : null}
                   <Variant
-                    design={this.props.projectData.pages[page].devices[device].designs[variant]}
-                    page={page}
-                    device={device}
-                    variant={variant}
-                    id={Math.floor(Math.random() * 1000)}
-                    actions={this.props.actions}
+                      design={this.props.projectData.pages[page].devices[device].designs[variant]}
+                      page={page}
+                      device={device}
+                      variant={variant}
+                      id={Math.floor(Math.random() * 1000)}
+                      actions={this.props.actions}
                   />
                 </div>
             );

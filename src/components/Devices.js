@@ -1,5 +1,8 @@
 import React from 'react';
 import Device from './Device';
+import Uppy from "uppy/lib/core/index";
+import XHRUpload from "uppy/lib/plugins/XHRUpload";
+import Dashboard from "uppy/lib/plugins/Dashboard/index";
 
 class Devices extends React.Component {
   constructor(props) {
@@ -7,6 +10,7 @@ class Devices extends React.Component {
     this.handleSaveData = this.handleSaveData.bind(this);
     this.handleAddDevice = this.handleAddDevice.bind(this);
     this.handleChangeDeviceData = this.handleChangeDeviceData.bind(this);
+    this.handleUploadFilesBtn = this.handleUploadFilesBtn.bind(this);
   }
 
   componentWillMount() {
@@ -23,6 +27,20 @@ class Devices extends React.Component {
       })
     });
     this.setState({devices})
+
+    this.uppy = Uppy({autoProceed: false})
+        .use(Dashboard, {
+          target: 'body',
+          closeModalOnClickOutside: true
+        })
+        .use(XHRUpload, {
+          endpoint: `${this.props.appState.apiURL}/uploadFiles.php?projectId=${this.props.projectData.projectId}&imageType=device`,
+          fieldName: 'my_file'
+        })
+        .run();
+    this.uppy.on('complete', (result) => {
+      console.log(result)
+    });
   }
 
   storeDevicesInfo() {
@@ -39,7 +57,6 @@ class Devices extends React.Component {
     });
     this.props.actions.storeDevices(devices)
   }
-
 
   handleSaveData(e) {
     e.preventDefault();
@@ -67,7 +84,6 @@ class Devices extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
     if (this.props.projectData.devices !== nextProps.projectData.devices) {
       this.props.actions.saveProjectData(
           ['devices'],
@@ -77,16 +93,22 @@ class Devices extends React.Component {
     }
   }
 
+  handleUploadFilesBtn() {
+    this.uppy.getPlugin('Dashboard').openModal();
+  }
+
   render() {
     return [
       <h1 key="title">Devices</h1>,
       <div key="content">
         <form onSubmit={this.handleSaveData}>
-          <div className="row text-right mt-2">
-            <div className="col-sm-12">
-              <button type="button" className="btn btn-primary" onClick={this.handleAddDevice}>Add device</button>
+          <div key="buttons" className="float-right mb-3">
+            <div className="btn-group mt-2" role="group">
+              <button type="submit" className="btn btn-secondary" onClick={this.handleUploadFilesBtn}>Upload files</button>
+              <button type="submit" className="btn btn-primary" onClick={this.handleAddDevice}>Add device</button>
             </div>
           </div>
+          <div className="clearfix"/>
           <div className="row small d-none d-md-flex">
             <div className="col-sm-12 col-md-2 col-lg-2 mt-2">Name</div>
             <div className="col-sm-12 col-md-2 col-lg-2 mt-2">Image</div>

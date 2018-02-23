@@ -2,6 +2,7 @@ import React from 'react';
 import $ from "jquery/dist/jquery";
 import 'bootstrap/dist/js/bootstrap.bundle'
 
+
 class Pages extends React.Component {
 
   constructor() {
@@ -12,7 +13,7 @@ class Pages extends React.Component {
     this.state = {
       editedTitle: undefined,
       edited: undefined
-    }
+    };
   }
 
   handleAddEditPageClick(title) {
