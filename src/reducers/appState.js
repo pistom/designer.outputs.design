@@ -1,9 +1,9 @@
-import {
-  SELECT_STEP
-} from '../actions/const';
+import LocalHostChecker from '../CheckIfRunOnLocalHost';
+import { SELECT_STEP } from '../actions/const';
+
 
 const initialState = {
-  apiURL: "http://api.outputs.local",
+  apiURL: LocalHostChecker.check() ? "http://api.outputs.local" : "http://api.outputs.cinquiemecrayon.eu",
   selectedStep: undefined
 };
 
