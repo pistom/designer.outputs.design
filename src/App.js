@@ -20,6 +20,7 @@ import logout from './actions/logout';
 import Login from './components/Login'
 import Project from './components/Project'
 import 'bootstrap/dist/css/bootstrap.css'
+import './css/style.css'
 import 'material-icons/css/material-icons.css'
 
 class App extends Component {

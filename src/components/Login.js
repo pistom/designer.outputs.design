@@ -53,13 +53,13 @@ class Login extends React.Component {
     return (
         <div className="container">
           <div className="row justify-content-center m-3 m-lg-5">
-            <div className="col-sm-7 col-md-5 col-lg-4 text-center border">
+            <div className="col-sm-7 col-md-5 col-lg-4 text-center border bg-light pt-3">
               <h3>designOutputs</h3>
               <form onSubmit={this.handleSubmit}>
                 <div className="form-group">
                   <div className="input-group mb-3">
                     <div className="input-group-prepend">
-                      <span className="input-group-text" id="basic-addon1">Project ID</span>
+                      <span className="input-group-text" style={{minWidth:100}} id="basic-addon1">Project ID</span>
                     </div>
                     <input className="form-control" type="text" id="projectId"
                            value={this.state.projectId}
@@ -70,7 +70,7 @@ class Login extends React.Component {
                 <div className="form-group">
                   <div className="input-group mb-3">
                     <div className="input-group-prepend">
-                      <span className="input-group-text" id="basic-addon1">Password</span>
+                      <span className="input-group-text" style={{minWidth:100}} id="basic-addon1">Password</span>
                     </div>
                     <input className="form-control" type="password" id="password"
                            value={this.state.password}
