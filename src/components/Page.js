@@ -76,13 +76,16 @@ class Page extends React.Component {
     const page = this.props.appState.editedPage;
     return [
       <h2 key="title">
-        {this.props.appState.editedPage ? "Edit" : "Add"} page
-        {this.props.appState.editedPage ? <strong> – {this.props.appState.editedPage}</strong> : null}
+        Edit page — <strong> {this.props.appState.editedPage}</strong>
       </h2>,
       <div key="buttons" className="float-right">
         <div className="btn-group mt-2" role="group">
-          <button type="submit" className="btn btn-secondary" onClick={this.handleUploadFilesBtn}>Upload files</button>
-          <button type="submit" className="btn btn-primary" onClick={this.handleSavePage}>Save</button>
+          <button type="submit" className="btn btn-secondary" onClick={this.handleUploadFilesBtn}>
+            <i className="mi mi-file-upload "/> Upload files
+          </button>
+          <button type="submit" className="btn btn-primary" onClick={this.handleSavePage}>
+            <i className="mi mi-save "/> Save
+          </button>
         </div>
       </div>,
       <div key="clearfix" className="clearfix"/>,

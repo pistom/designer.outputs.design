@@ -1,6 +1,6 @@
 import LocalHostChecker from '../CheckIfRunOnLocalHost';
 import {
-  GET_FILES_LIST_FULFILLED, GET_FILES_LIST_PENDING, GET_FILES_LIST_REJECTED,
+  GET_FILES_LIST_FULFILLED, GET_FILES_LIST_PENDING, GET_FILES_LIST_REJECTED, LOGOUT,
   SELECT_STEP
 } from '../actions/const';
 
@@ -12,6 +12,16 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+
+    case LOGOUT: {
+      return Object.assign({}, state, {
+        selectedStep: undefined,
+        editedPage: undefined,
+        background: undefined,
+        device: undefined,
+        project: undefined
+      });
+    }
 
     case SELECT_STEP: {
       return Object.assign({}, state, {

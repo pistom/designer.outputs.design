@@ -16,15 +16,13 @@ import setVariantImageSize from './actions/setVariantImageSize';
 import setVariantDensity from './actions/setVariantDensity';
 import savePageName from './actions/savePageName';
 import getFilesList from './actions/getFilesList';
+import logout from './actions/logout';
 import Login from './components/Login'
 import Project from './components/Project'
 import 'bootstrap/dist/css/bootstrap.css'
+import 'material-icons/css/material-icons.css'
 
 class App extends Component {
-
-  componentDidMount() {
-
-  }
 
   render() {
     return (
@@ -78,7 +76,8 @@ function mapDispatchToProps(dispatch) {
     setVariantImageSize,
     savePageName,
     getFilesList,
-    setVariantDensity
+    setVariantDensity,
+    logout
   };
   return {actions: bindActionCreators(actions, dispatch)};
 }

@@ -49,6 +49,7 @@ class Pages extends React.Component {
           <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#addPageModal"
                   onClick={() => this.handleAddEditPageClick()}
           >
+            <i className="mi mi-note-add mr-1"/>
             Add page
           </button>
         </div>
@@ -60,11 +61,11 @@ class Pages extends React.Component {
                 <div className="col-8 mt-2">
                   <h4>
                     {page}
-                    <button type="button" className="btn btn-link btn-sm ml-3" data-toggle="modal"
+                    <button type="button" className="btn btn-link btn-sm ml-1" data-toggle="modal"
                             data-target="#addPageModal"
                             onClick={() => this.handleAddEditPageClick(page)}
                     >
-                      Edit page name
+                      <i className="mi mi-mode-edit"/> Edit name
                     </button>
                   </h4>
                 </div>
@@ -73,7 +74,7 @@ class Pages extends React.Component {
                         to="/page"
                         onClick={() => this.props.actions.selectStep("page", page)}
                   >
-                    Edit
+                    <i className="mi mi-mode-edit"/> Edit
                   </Link>
                 </div>
               </div>

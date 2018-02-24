@@ -14,6 +14,7 @@ import {
   SET_VARIANT_DENSITY,
   EDIT_PAGE_NAME,
   ADD_NEW_PAGE,
+  LOGOUT
 } from '../actions/const';
 
 const initialState = {
@@ -130,6 +131,17 @@ export default function reducer(state = initialState, action) {
       const stateCopy = Object.assign(state);
       stateCopy.pages[action.name] = action.emptyPage;
       return Object.assign({}, stateCopy);
+    }
+
+    case LOGOUT: {
+      return Object.assign({}, state, {
+        pages: undefined,
+        background: undefined,
+        device: undefined,
+        messages: undefined,
+        dataReady: false,
+        loadingDataError: true
+      });
     }
 
     default: {

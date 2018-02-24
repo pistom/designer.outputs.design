@@ -53,7 +53,7 @@ class Login extends React.Component {
     return (
         <div className="container">
           <div className="row justify-content-center m-3 m-lg-5">
-            <div className="col-sm-6 col-md-5 col-lg-4 text-center border">
+            <div className="col-sm-7 col-md-5 col-lg-4 text-center border">
               <h3>designOutputs</h3>
               <form onSubmit={this.handleSubmit}>
                 <div className="form-group">

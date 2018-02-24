@@ -23,7 +23,7 @@ class MainMenu extends React.Component {
             <span className="navbar-toggler-icon"/>
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div className="navbar-nav">
+            <div className="navbar-nav mr-auto">
               <Link
                   to="/"
                   onClick={() => this.handleSelectStep("home")}
@@ -60,6 +60,18 @@ class MainMenu extends React.Component {
                 Messages
               </Link>
             </div>
+
+            <div className="form-inline my-2 my-lg-0">
+                <Link
+                    to="/"
+                    className="btn btn-outline-secondary btn-sm my-2 my-sm-0"
+                    onClick={this.props.actions.logout}
+                >
+                  Logout
+                  <i className="mi mi-directions-run ml-1"/>
+                </Link>
+            </div>
+
           </div>
         </nav>
     );

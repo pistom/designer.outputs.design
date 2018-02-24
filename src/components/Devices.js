@@ -126,8 +126,12 @@ class Devices extends React.Component {
         <form onSubmit={this.handleSaveData}>
           <div key="buttons" className="float-right mb-3">
             <div className="btn-group mt-2" role="group">
-              <button type="submit" className="btn btn-secondary" onClick={this.handleUploadFilesBtn}>Upload files</button>
-              <button type="submit" className="btn btn-primary" onClick={this.handleAddDevice}>Add device</button>
+              <button type="submit" className="btn btn-secondary" onClick={this.handleUploadFilesBtn}>
+                <i className="mi mi-file-upload "/> Upload files
+              </button>
+              <button type="submit" className="btn btn-primary" onClick={this.handleAddDevice}>
+                <i className="mi mi-add "/> Add device
+              </button>
             </div>
           </div>
           <div className="clearfix"/>
@@ -163,7 +167,7 @@ class Devices extends React.Component {
           })}
           <div className="row mt-3">
             <div className="col-sm-12">
-              <button type="submit" className="btn btn-primary">Save</button>
+              <button type="submit" className="btn btn-primary"><i className="mi mi-save"/> Save</button>
             </div>
           </div>
 
