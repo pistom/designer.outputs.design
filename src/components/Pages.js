@@ -1,6 +1,7 @@
 import React from 'react';
 import $ from "jquery/dist/jquery";
 import 'bootstrap/dist/js/bootstrap.bundle'
+import {Link} from 'react-router-dom';
 
 
 class Pages extends React.Component {
@@ -68,11 +69,12 @@ class Pages extends React.Component {
                   </h4>
                 </div>
                 <div className="col-4 mt-2 text-right">
-                  <button className="btn btn-primary"
-                          onClick={() => this.props.actions.selectStep("page", page)}
+                  <Link className="btn btn-primary"
+                        to="/page"
+                        onClick={() => this.props.actions.selectStep("page", page)}
                   >
                     Edit
-                  </button>
+                  </Link>
                 </div>
               </div>
           )
