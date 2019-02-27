@@ -1,4 +1,5 @@
 import React from 'react';
+import fetch from "isomorphic-fetch";
 
 class Login extends React.Component {
 
@@ -8,13 +9,15 @@ class Login extends React.Component {
     this.handleChangeProjectId = this.handleChangeProjectId.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCreateNewProject = this.handleCreateNewProject.bind(this);
   }
 
   componentWillMount() {
     this.setState({
       projectId: '',
       password: '',
-      error: ''
+      error: '',
+      newProjectId: ''
     });
   }
 
@@ -49,6 +52,13 @@ class Login extends React.Component {
     this.props.getProjectMessages(this.state.projectId, this.state.password, this.props.apiURL);
   }
 
+  handleCreateNewProject() {
+    const dataSource = `${this.props.apiURL}/createProject.php`;
+    fetch(dataSource, {method: 'GET'}).then(response => response.json()).then((response) => {
+      this.setState({newProjectId: response});
+    });
+  }
+
   render() {
     return (
         <div className="container">
@@ -59,7 +69,7 @@ class Login extends React.Component {
                 <div className="form-group">
                   <div className="input-group mb-3">
                     <div className="input-group-prepend">
-                      <span className="input-group-text" style={{minWidth:100}} id="basic-addon1">Project ID</span>
+                      <span className="input-group-text" style={{minWidth: 100}} id="basic-addon1">Project ID</span>
                     </div>
                     <input className="form-control" type="text" id="projectId"
                            value={this.state.projectId}
@@ -70,7 +80,7 @@ class Login extends React.Component {
                 <div className="form-group">
                   <div className="input-group mb-3">
                     <div className="input-group-prepend">
-                      <span className="input-group-text" style={{minWidth:100}} id="basic-addon1">Password</span>
+                      <span className="input-group-text" style={{minWidth: 100}} id="basic-addon1">Password</span>
                     </div>
                     <input className="form-control" type="password" id="password"
                            value={this.state.password}
@@ -85,6 +95,23 @@ class Login extends React.Component {
               <p>{this.state.error}</p>
             </div>
           </div>
+
+            {this.state.newProjectId === "" ?
+                (
+                    <p className="text-center">
+                      <a className="btn btn-outline"
+                         onClick={this.handleCreateNewProject}
+                      >
+                        Create new project
+                      </a>
+                    </p>
+                ) :
+                (
+                    <p className="text-center">
+                      Your new project ID is <br/>
+                      <strong className="text-success">{this.state.newProjectId}</strong>
+                    </p>
+                )}
         </div>
     );
   }

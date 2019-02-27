@@ -16,6 +16,7 @@ import setVariantImageSize from './actions/setVariantImageSize';
 import setVariantDensity from './actions/setVariantDensity';
 import savePageName from './actions/savePageName';
 import getFilesList from './actions/getFilesList';
+import addMessage from './actions/addMessage';
 import logout from './actions/logout';
 import Login from './components/Login'
 import Project from './components/Project'
@@ -37,6 +38,7 @@ class App extends Component {
                 appState={this.props.appState}
                 actions={this.props.actions}
                 projectData={this.props.projectData}
+                projectMessages={this.props.projectMessages}
               />
             ) : (
               <Login
@@ -78,7 +80,8 @@ function mapDispatchToProps(dispatch) {
     savePageName,
     getFilesList,
     setVariantDensity,
-    logout
+    logout,
+    addMessage
   };
   return {actions: bindActionCreators(actions, dispatch)};
 }

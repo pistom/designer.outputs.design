@@ -23,6 +23,14 @@ class Device extends React.Component {
     })
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(this.props.fileName !== nextProps.fileName){
+      this.setState({
+        fileName: nextProps.fileName,
+      })
+    }
+  }
+
   handleBgNameChange(e) {
     this.setState({deviceName: e.target.value});
     this.props.onChange(Object.assign(this.state, {deviceName: e.target.value}), this.props.arrayItem);

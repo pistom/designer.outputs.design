@@ -15,6 +15,14 @@ class Background extends React.Component {
     })
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(this.props.fileName !== nextProps.fileName){
+      this.setState({
+        fileName: nextProps.fileName,
+      })
+    }
+  }
+
   handleBgNameChange(e) {
     this.setState({bgName: e.target.value});
     this.props.onChange(Object.assign(this.state, {bgName: e.target.value}), this.props.arrayItem);

@@ -23,7 +23,7 @@ class Project extends React.Component {
                 appState={this.props.appState}
                 projectData={this.props.projectData}
             />
-            <div className="container">
+            <div className="container mb-5">
               <Route exact path="/" render={() =>
                   <Home
                       appState={this.props.appState}
@@ -61,6 +61,7 @@ class Project extends React.Component {
                       appState={this.props.appState}
                       actions={this.props.actions}
                       projectData={this.props.projectData}
+                      messages={this.props.projectMessages.messages}
                   />
                 }
               />

@@ -2,6 +2,7 @@ import {
   GET_MESSAGES_FULFILLED,
   GET_MESSAGES_PENDING,
   GET_MESSAGES_REJECTED,
+  ADD_MESSAGE
 } from '../actions/const';
 
 const initialState = {
@@ -41,6 +42,17 @@ export default function reducer(state = initialState, action) {
         loadingMessagesError: true
       });
       return nextState;
+    }
+
+    case ADD_MESSAGE: {
+      const stateCopy = Object.assign(state);
+      stateCopy.messages.push({
+        "date": action.date,
+        "time": action.time,
+        "type": "designer",
+        "content": action.message
+      });
+      return Object.assign({}, stateCopy);
     }
 
     default: {

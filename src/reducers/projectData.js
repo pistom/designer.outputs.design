@@ -129,7 +129,11 @@ export default function reducer(state = initialState, action) {
 
     case ADD_NEW_PAGE: {
       const stateCopy = Object.assign(state);
-      stateCopy.pages[action.name] = action.emptyPage;
+      if (Array.isArray(stateCopy.pages)){
+        stateCopy.pages = {[action.name]:action.emptyPage};
+      } else {
+        stateCopy.pages[action.name] = action.emptyPage;
+      }
       return Object.assign({}, stateCopy);
     }
 

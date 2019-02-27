@@ -5,7 +5,7 @@ class CheckIfRunOnLocalHost {
     const localDomains = [
       'localhost',
       '127.0.0.1',
-      'designer.ouptus.local'
+      'designer.outputs.local'
     ];
     return localDomains.indexOf(currentUrl) !== -1;
   }

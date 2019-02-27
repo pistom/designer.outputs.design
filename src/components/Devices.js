@@ -69,6 +69,7 @@ class Devices extends React.Component {
   }
 
   handleChangeDeviceData(data, index) {
+    console.log(data)
     let devices = this.state.devices;
     devices[index] = data;
     this.setState({devices});
